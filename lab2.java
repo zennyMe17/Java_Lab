@@ -1,4 +1,3 @@
-
 import java.util.*;
 
 class Employee {
@@ -13,22 +12,24 @@ class Employee {
         Scanner input = new Scanner(System.in);
 
         System.out.print("Enter name: ");
-        name = input.nextLine();
+        this.name = input.nextLine();
 
         System.out.print("Enter ID: ");
-        eID = input.nextInt();
+        this.eID = input.nextInt();
+        input.nextLine(); // Consume leftover newline
 
         System.out.print("Enter dept: ");
-        dept = input.nextLine();
+        this.dept = input.nextLine();
 
         System.out.print("Enter designation: ");
-        desig = input.nextLine();
+        this.desig = input.nextLine();
 
         System.out.print("Enter Age: ");
-        age = input.nextInt();
-        
+        this.age = input.nextInt();
+        input.nextLine(); // Consume leftover newline
+
         System.out.print("Enter Salary: ");
-        salary = input.nextInt();
+        this.salary = input.nextInt();
     }
 
     void display() {
@@ -41,27 +42,27 @@ class Employee {
     }
 }
 
- class EmployeeDatabase {
+class EmployeeDatabase {
     public static void main(String[] args) {
         Scanner input = new Scanner(System.in);
-        Employee[] e = new Employee[5];
+        Employee[] e = new Employee[2];
 
-        for (int i = 0; i < 5; i++) {
+        for (int i = 0; i < 2; i++) {
             e[i] = new Employee(); 
             System.out.println("Enter Details of employee " + (i + 1));
             e[i].read_details();
         }
 
         while (true) {
-            System.out.println("Which employee's details you want (enter 0 to exit): ");
+            System.out.print("Which employee's details you want (enter 0 to exit): ");
             int n = input.nextInt();
 
             if (n == 0) {
                 break;
             }
 
-            if (n < 1 || n > 5) {
-                System.out.println("Invalid employee number. Please enter a number between 1 and 5.");
+            if (n < 1 || n > 2) {
+                System.out.println("Invalid employee number. Please enter a number between 1 and 2.");
                 continue;
             }
 
@@ -69,6 +70,14 @@ class Employee {
             e[n - 1].display();
         }
 
-        input.close();
+        int totalSalary = 0;
+        for (int i = 0; i < 2; i++) {
+            if (e[i].desig == "Sales") { // Use .equals() for string comparison
+                totalSalary += e[i].salary;
+            }
+        }
+
+        System.out.println("Total Salary for Sales employees is = " + totalSalary);
+        input.close(); // Close the Scanner to prevent resource leak
     }
 }
